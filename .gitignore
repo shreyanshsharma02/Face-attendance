@@ -1,0 +1,36 @@
+# Java / Maven
+backend/target/
+*.class
+*.jar
+*.war
+*.ear
+
+# Python
+recognition/venv/
+recognition/__pycache__/
+recognition/app/__pycache__/
+recognition/**/__pycache__/
+recognition/.env
+recognition/*.pyc
+recognition/models/
+
+# Node / Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets
+*.env
+.env
+.env.*
+!.env.example

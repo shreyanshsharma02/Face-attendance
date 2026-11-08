@@ -1,0 +1,30 @@
+# Local development stack: PostgreSQL + Spring Boot API.
+# Run the recognition service and frontend separately (see README).
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: attendance_db
+      POSTGRES_USER: attendance_user
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:?set DATABASE_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  backend:
+    build: ./backend
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: jdbc:postgresql://db:5432/attendance_db
+      DATABASE_USERNAME: attendance_user
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:?set DATABASE_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET}
+      ADMIN_SEED_PASSWORD: ${ADMIN_SEED_PASSWORD:?set ADMIN_SEED_PASSWORD}
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    ports:
+      - "8080:8080"
+
+volumes:
+  pgdata:
